@@ -7,3 +7,9 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@layer utilities {
+  .center{
+    @apply flex h-screen items-center justify-center;
+  }
+}
