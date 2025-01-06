@@ -62,7 +62,7 @@ body {
     @apply flex h-[78px] flex-col justify-center rounded-xl border border-light-300 px-4 shadow-drop-1;
   }
   .shad-form-label {
-    @apply text-light-100 pt-2 body-2 w-full !important;
+    @apply text-light-100 w-full !important;
   }
   .shad-form-message {
     @apply text-red body-2 ml-4 !important;
@@ -207,7 +207,7 @@ body {
 
   /* AuthForm */
   .auth-form {
-    @apply flex max-h-[800px] w-full max-w-[580px] flex-col justify-center space-y-6 transition-all lg:h-full lg:space-y-8 !important;
+    @apply flex max-h-[800px] w-full max-w-[1000px] flex-col justify-center space-y-6 transition-all lg:h-full lg:space-y-8 !important;
   }
   .form-title {
     @apply h1 text-center text-light-100 md:text-left !important;
@@ -360,6 +360,7 @@ body {
   .thumbnail-image {
     @apply size-full object-cover object-center !important;
   }
+
 }
 
 @layer base {
