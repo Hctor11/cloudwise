@@ -1,9 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -24,6 +25,8 @@ const AuthFormSchema = z.object({
 });
 
 const AuthForm = ({ type }: { type: "sign-in" | "sign-up" }) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof AuthFormSchema>>({
     resolver: zodResolver(AuthFormSchema),
@@ -54,10 +57,7 @@ const AuthForm = ({ type }: { type: "sign-in" | "sign-up" }) => {
                 <FormItem>
                   <FormLabel className="shad-form-label">User Name</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Enter an username"
-                      {...field}
-                    />
+                    <Input placeholder="Enter an username" {...field} />
                   </FormControl>
                   <FormMessage className="shad-form-message" />
                 </FormItem>
@@ -80,7 +80,19 @@ const AuthForm = ({ type }: { type: "sign-in" | "sign-up" }) => {
             )}
           />
 
-          <Button type="submit">Submit</Button>
+          <Button type="submit" className="bg-brand">
+            {type === "sign-in" ? "Sign In" : "Sign Up"}
+
+            {isLoading && (
+              <Image
+                src="loading.svg"
+                alt="loader"
+                width={24}
+                height={24}
+                className="ml-2 animate-spin"
+              />
+            )}
+          </Button>
         </form>
       </Form>
     </>

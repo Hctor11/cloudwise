@@ -207,7 +207,7 @@ body {
 
   /* AuthForm */
   .auth-form {
-    @apply flex max-h-[800px] w-full max-w-[1000px] flex-col justify-center space-y-6 transition-all lg:h-full lg:space-y-8 !important;
+    @apply flex max-h-[800px] mb-16 w-full max-w-[400px] flex-col space-y-2 justify-center transition-all lg:h-full lg:space-y-8 !important;
   }
   .form-title {
     @apply h1 text-center text-light-100 md:text-left !important;
