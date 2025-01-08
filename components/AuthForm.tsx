@@ -19,13 +19,19 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-const AuthFormSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8),
-  username: z.string().min(3),
-});
+type FormType = "sign-in" | "sign-up";
 
-const AuthForm = ({ type }: { type: "sign-in" | "sign-up" }) => {
+const AuthForm = ({ type }: { type: FormType }) => {
+
+  const AuthFormSchema = z.object({
+    email: z.string().email(),
+    username:
+    type === "sign-up"
+        ? z.string().min(2).max(50)
+        : z.string().optional(),
+  });
+
+
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -34,6 +40,7 @@ const AuthForm = ({ type }: { type: "sign-in" | "sign-up" }) => {
     resolver: zodResolver(AuthFormSchema),
     defaultValues: {
       username: "",
+      email: "",
     },
   });
 
