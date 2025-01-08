@@ -5,6 +5,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
+import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -26,6 +27,7 @@ const AuthFormSchema = z.object({
 
 const AuthForm = ({ type }: { type: "sign-in" | "sign-up" }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof AuthFormSchema>>({
@@ -37,8 +39,6 @@ const AuthForm = ({ type }: { type: "sign-in" | "sign-up" }) => {
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof AuthFormSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     console.log(values);
   }
 
@@ -80,7 +80,7 @@ const AuthForm = ({ type }: { type: "sign-in" | "sign-up" }) => {
             )}
           />
 
-          <Button type="submit" className="bg-brand">
+          <Button type="submit" className="bg-brand" disabled={isLoading}>
             {type === "sign-in" ? "Sign In" : "Sign Up"}
 
             {isLoading && (
@@ -93,6 +93,26 @@ const AuthForm = ({ type }: { type: "sign-in" | "sign-up" }) => {
               />
             )}
           </Button>
+
+          {errorMessage && (
+            <p className="error-message" role="alert">
+              *{errorMessage}
+            </p>
+          )}
+
+          <div className="body-2 gap-1 text-gray-500 flex justify-center">
+            <p>
+              {type === "sign-in"
+                ? "Don't have an account? "
+                : "Already have an account? "}
+            </p>
+          <Link className="text-brand" href={type === "sign-in" ? "/sign-up" : "/sign-in"}>
+          {" "}
+          {type === "sign-in" ? " Sign Up" : " Sign In"}
+            </Link>
+          </div>
+
+
         </form>
       </Form>
     </>
