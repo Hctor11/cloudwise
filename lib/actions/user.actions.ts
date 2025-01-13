@@ -32,16 +32,16 @@ const sendEmailOTP = async ({ email }: { email: string }) => {
 };
 
 export const createAccount = async ({
-  fullName,
+  username,
   email,
 }: {
-  fullName: string;
+  username: string;
   email: string;
 }) => {
   const existingUser = await getUserByEmail(email);
 
-  const accountId = await sendEmailOTP({ email });
-  if (!accountId) throw new Error("Failed to send an OTP");
+  const userId = await sendEmailOTP({ email });
+  if (!userId) throw new Error("Failed to send an OTP");
 
   if (!existingUser) {
     const { databases } = await createAdminClient();
@@ -51,13 +51,13 @@ export const createAccount = async ({
       appWriteConfig.usersCollection,
       ID.unique(),
       {
-        fullName,
+        username,
         email,
         avatar: "",
-        accountId,
+        userId,
       },
     );
   }
 
-  return parseStringify({ accountId})
+  return parseStringify({ userId })
 }
